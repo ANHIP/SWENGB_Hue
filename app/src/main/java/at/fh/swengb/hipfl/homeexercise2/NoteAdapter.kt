@@ -6,32 +6,40 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.item_note.view.*
 
-class NoteAdapter : RecyclerView.Adapter<NoteViewHolder>() {
+class NoteAdapter () : RecyclerView.Adapter<NoteViewHolder>()
+{
     var noteList = listOf<Note>()
-    fun updateList(list: List<Note>) {
-        noteList = list
+
+    fun updateOfList(new_list: List<Note>)
+    {
+        noteList = new_list
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, position: Int): NoteViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, position: Int): NoteViewHolder
+    {
         val inflater = LayoutInflater.from(parent.context)
-        val view = inflater.inflate(R.layout.item_note, parent, false)
-        return NoteViewHolder(view)
+        val noteItemView = inflater.inflate(R.layout.item_note, parent, false)
+        return NoteViewHolder(noteItemView)
     }
 
-    override fun getItemCount(): Int {
+    override fun getItemCount(): Int
+    {
         return noteList.size
     }
 
-    override fun onBindViewHolder(viewHolder: NoteViewHolder, position: Int) {
+    override fun onBindViewHolder(viewHolder: NoteViewHolder, position: Int)
+    {
         val student = noteList[position]
         viewHolder.bindItem(student)
     }
 
 }
 
-class NoteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    fun bindItem(note: Note) {
+class NoteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+{
+    fun bindItem(note: Note)
+    {
         itemView.txt_Content.text = note.content
         itemView.txt_Title.text = note.title
     }

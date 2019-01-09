@@ -6,16 +6,14 @@ import android.arch.persistence.room.Query
 import android.arch.persistence.room.Update
 
 @Dao
-interface NoteDao {
+interface NoteDao
+{
     @Insert
     fun insert(student: Note)
-
     @Update
     fun update(student: Note)
-
-    @Query("DELETE FROM Note")
+    @Query("DELETE FROM dbNote")
     fun deleteAllStudents()
-
-    @Query("SELECT * FROM Note")
-    fun findAll(): List<Note>
+    @Query("SELECT * FROM dbNote")
+    fun getAllStudents(): List<Note>
 }

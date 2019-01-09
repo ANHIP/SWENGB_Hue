@@ -9,16 +9,22 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?)
+    {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
     }
 
-    fun save(v: View) {
+    fun saveTheHuman(v: View)
+
+    {
+        val intent = Intent(this, NoteListActivity::class.java)
+        startActivity(intent)
+
         val sharedPreferences = getSharedPreferences(packageName, Context.MODE_PRIVATE)
         sharedPreferences.edit().putString("name", txt_name.text.toString()).apply()
         sharedPreferences.edit().putString("age", txt_age.text.toString()).apply()
-        val intent = Intent(this, NoteListActivity::class.java)
-        startActivity(intent)
+
+
     }
 }

@@ -8,30 +8,40 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import kotlinx.android.synthetic.main.activity_note_list.*
 
-class NoteListActivity : AppCompatActivity() {
-    private val noteAdapter = NoteAdapter()
+class NoteListActivity : AppCompatActivity()
+{
     lateinit var db: NotesRoomDatabase
-    override fun onCreate(savedInstanceState: Bundle?) {
+    private val noteAdapter = NoteAdapter()
+
+
+    override fun onCreate(savedInstanceState: Bundle?)
+    {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_note_list)
 
         val sharedPreferences = getSharedPreferences(packageName, Context.MODE_PRIVATE)
+
         val savedName = sharedPreferences.getString("name", null)
+
         val savedAge = sharedPreferences.getString("age", null)
 
-        userinfo.text = "Notes for " + savedName + if (!savedAge.isNullOrBlank()) ", " + savedAge else ""
+        userinfo.text = "Notes for " + savedName + ", " + savedAge
+
         db = NotesRoomDatabase.getDatabase(this)
         recyclerview_notelist.adapter = noteAdapter
         recyclerview_notelist.layoutManager = LinearLayoutManager(this)
     }
+    override fun onResume()
+    {
+        noteAdapter.updateOfList(db.noteDao.getAllStudents())
+        super.onResume()
+    }
 
-    fun startAddNoteActivity(v: View) {
+    fun clickAddNote(v: View)
+    {
         val intent = Intent(this, AddNoteActivity::class.java)
         startActivity(intent)
     }
 
-    override fun onResume() {
-        noteAdapter.updateList(db.noteDao.findAll())
-        super.onResume()
-    }
+
 }
